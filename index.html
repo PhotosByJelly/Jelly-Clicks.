@@ -1,1 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Behind the Lens – by Jelly</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
 
+    <header class="main-header">
+        <h1 class="site-title">Behind the Lens</h1>
+        <p class="site-tagline">Soft, dreamy, unedited moments – by Jelly</p>
+    </header>
+
+    <main class="gallery-container">
+        <div class="photo-grid" id="photo-grid">
+            <div class="photo-card reveal-item"
+                 data-src="https://i.ibb.co/TM5G95rk/IMG-20230322-193250-4x3.jpg"
+                 data-title="Purple Water Lily"
+                 data-shot-on="Redmi Note 12 Pro 5G"
+                 data-iso="52"
+                 data-shutter="1/133s"
+                 data-aperture="f/1.88"
+                 data-download-link="https://drive.google.com/uc?export=download&id=1-34gfOVIAo6Ip_LE29BdvlLIPsMygCvL">
+                <img loading="lazy" src="https://i.ibb.co/TM5G95rk/IMG-20230322-193250-4x3.jpg" alt="Purple Water Lily">
+                <div class="card-overlay">
+                    <h3>Purple Water Lily</h3>
+                </div>
+            </div>
+
+            <div class="photo-card reveal-item"
+                 data-src="https://i.ibb.co/zVy9t0V8/IMG-20240416-102802.jpg"
+                 data-title="Golden Sunflower"
+                 data-shot-on="Redmi Note 12 Pro 5G"
+                 data-iso="57"
+                 data-shutter="1/1012s"
+                 data-aperture="f/1.8"
+                 data-download-link="https://drive.google.com/uc?export=download&id=1-Q_A97rz625dxEeFPJYLGn0bAqLBDr-P">
+                <img loading="lazy" src="https://i.ibb.co/zVy9t0V8/IMG-20240416-102802.jpg" alt="Golden Sunflower">
+                <div class="card-overlay">
+                    <h3>Golden Sunflower</h3>
+                </div>
+            </div>
+
+            <div class="photo-card reveal-item"
+                 data-src="https://i.ibb.co/RpZr2mVs/IMG-20240615-105953.jpg"
+                 data-title="Sulphur Cosmos"
+                 data-shot-on="Redmi Note 12 Pro 5G"
+                 data-iso="57"
+                 data-shutter="1/1029s"
+                 data-aperture="f/1.8"
+                 data-download-link="https://drive.google.com/uc?export=download&id=1-VMUoy11mRhPbPpuwbOhTMbQp2r8L3gA">
+                <img loading="lazy" src="https://i.ibb.co/RpZr2mVs/IMG-20240615-105953.jpg" alt="Sulphur Cosmos">
+                <div class="card-overlay">
+                    <h3>Sulphur Cosmos</h3>
+                </div>
+            </div>
+
+            <div class="photo-card reveal-item"
+                 data-src="https://i.ibb.co/9mn3FbpN/IMG-20240728-181713.jpg"
+                 data-title="Hope Amidst the Shadows"
+                 data-shot-on="Redmi Note 12 Pro 5G"
+                 data-iso="53"
+                 data-shutter="1/125s"
+                 data-aperture="f/1.88"
+                 data-download-link="https://drive.google.com/uc?export=download&id=1-Yi2vD9yDGAqlx-WuRqY9FzuygZvB-9Y">
+                <img loading="lazy" src="https://i.ibb.co/9mn3FbpN/IMG-20240728-181713.jpg" alt="Hope Amidst the Shadows">
+                <div class="card-overlay">
+                    <h3>Hope Amidst the Shadows</h3>
+                </div>
+            </div>
+
+            <div class="photo-card reveal-item"
+                 data-src="https://i.ibb.co/S4w00KLy/IMG-20241003-091723.jpg"
+                 data-title="Sun Kissed Sida acuta"
+                 data-shot-on="Redmi Note 12 Pro 5G"
+                 data-iso="51"
+                 data-shutter="1/1290s"
+                 data-aperture="f/1.88"
+                 data-download-link="https://drive.google.com/uc?export=download&id=1-wAXpiKIkcG0gTBUrxzJF0IHBL-6ajF7">
+                <img loading="lazy" src="https://i.ibb.co/S4w00KLy/IMG-20241003-091723.jpg" alt="Sun Kissed Sida acuta">
+                <div class="card-overlay">
+                    <h3>Sun Kissed Sida acuta</h3>
+                </div>
+            </div>
+            </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; <span id="current-year"></span> Behind the Lens. Photos by Jelly.</p>
+        <p>Made with passion and creativity.</p>
+    </footer>
+
+    <div class="photo-modal" id="photo-modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <div class="modal-body">
+                <img src="" alt="" id="modal-image">
+                <div class="modal-details">
+                    <h3 id="modal-title"></h3>
+                    <p><strong>Shot on:</strong> <span id="modal-shot-on"></span></p>
+                    <p><strong>ISO:</strong> <span id="modal-iso"></span> | <strong>Shutter:</strong> <span id="modal-shutter"></span> | <span id="modal-aperture"></span></p>
+                    <a href="#" class="download-btn" id="modal-download-btn" target="_blank">Download Raw Photo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

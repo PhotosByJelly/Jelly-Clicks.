@@ -1,1 +1,92 @@
+// assets/js/main.js
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Set current year in footer
+    const currentYearSpan = document.getElementById('current-year');
+    if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+    }
+
+    // --- Photo Modal Logic ---
+    const photoCards = document.querySelectorAll('.photo-card');
+    const photoModal = document.getElementById('photo-modal');
+    const closeModalBtn = photoModal.querySelector('.close-btn');
+    const modalImage = document.getElementById('modal-image');
+    const modalTitle = document.getElementById('modal-title');
+    const modalShotOn = document.getElementById('modal-shot-on');
+    const modalISO = document.getElementById('modal-iso');
+    const modalShutter = document.getElementById('modal-shutter');
+    const modalAperture = document.getElementById('modal-aperture');
+    const modalDownloadBtn = document.getElementById('modal-download-btn');
+
+    photoCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Get data from the clicked card
+            const imgSrc = card.dataset.src;
+            const title = card.dataset.title;
+            const shotOn = card.dataset.shotOn;
+            const iso = card.dataset.iso;
+            const shutter = card.dataset.shutter;
+            const aperture = card.dataset.aperture;
+            const downloadLink = card.dataset.downloadLink;
+
+            // Populate the modal with data
+            modalImage.src = imgSrc;
+            modalImage.alt = title;
+            modalTitle.textContent = title;
+            modalShotOn.textContent = shotOn;
+            modalISO.textContent = iso;
+            modalShutter.textContent = shutter;
+            modalAperture.textContent = aperture;
+            modalDownloadBtn.href = downloadLink;
+
+            // Show the modal
+            photoModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling background
+        });
+    });
+
+    // Close modal when close button is clicked
+    closeModalBtn.addEventListener('click', () => {
+        photoModal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    });
+
+    // Close modal when clicking outside the modal content
+    photoModal.addEventListener('click', (e) => {
+        if (e.target === photoModal) {
+            photoModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && photoModal.classList.contains('active')) {
+            photoModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // --- Scroll Reveal Animation Logic (using Intersection Observer) ---
+    const revealItems = document.querySelectorAll('.reveal-item');
+
+    const observerOptions = {
+        root: null, // relative to the viewport
+        rootMargin: '0px',
+        threshold: 0.1 // 10% of the item must be visible
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                observer.unobserve(entry.target); // Stop observing once revealed
+            }
+        });
+    }, observerOptions);
+
+    revealItems.forEach(item => {
+        observer.observe(item);
+    });
+});

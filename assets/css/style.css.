@@ -1,1 +1,366 @@
+/* assets/css/style.css */
 
+/* --- CSS Variables for Easy Customization --- */
+:root {
+    --color-primary-bg: #fcf8f5; /* Very soft cream/off-white */
+    --color-secondary-bg: #ece6e1; /* Slightly darker cream for contrast */
+    --color-text-dark: #3a3a3a; /* Deep, soft charcoal */
+    --color-text-light: #f5f5f5; /* Light text for dark backgrounds */
+    --color-accent: #b8869a; /* Muted rose/dusty pink - your existing color, but softer */
+    --color-hover: #9e6f80; /* Darker accent for hover states */
+    --color-shadow: rgba(0, 0, 0, 0.08); /* Gentle shadow */
+    --font-heading: 'Cormorant Garamond', serif; /* Elegant, classic serif */
+    --font-body: 'Montserrat', sans-serif; /* Clean, modern sans-serif */
+    --transition-duration: 0.6s; /* Base duration for smooth transitions */
+    --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1); /* Custom easing for fluidity */
+    --border-radius: 10px;
+}
+
+/* --- Global Resets & Base Styles --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    line-height: 1.7;
+    background-color: var(--color-primary-bg);
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    -webkit-font-smoothing: antialiased; /* Better font rendering */
+    -moz-osx-font-smoothing: grayscale;
+    opacity: 0; /* Initial hidden state for page load animation */
+    animation: fadeInPage 1.5s var(--ease-out-cubic) forwards;
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-duration) var(--ease-out-cubic);
+}
+
+a:hover {
+    color: var(--color-hover);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Removes extra space below images */
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    color: var(--color-text-dark);
+    margin-bottom: 0.8em;
+}
+
+h1 { font-size: 3.8em; font-weight: 700; line-height: 1.2; }
+h2 { font-size: 2.8em; font-weight: 500; }
+h3 { font-size: 1.6em; font-weight: 500; }
+
+p { font-size: 1em; }
+
+/* --- Header --- */
+.main-header {
+    text-align: center;
+    padding: 4em 2em;
+    background: var(--color-secondary-bg);
+    box-shadow: 0 4px 15px var(--color-shadow);
+    position: relative;
+    overflow: hidden; /* For any subtle background animation */
+}
+
+.site-title {
+    margin: 0;
+    animation: slideInFromTop 1.2s var(--ease-out-cubic) forwards;
+    opacity: 0;
+}
+
+.site-tagline {
+    font-size: 1.15em;
+    color: #777;
+    margin-top: 0.5em;
+    animation: fadeIn 1.2s var(--ease-out-cubic) 0.5s forwards;
+    opacity: 0;
+}
+
+/* --- Gallery Container & Grid --- */
+.gallery-container {
+    padding: 3em 2em;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5em;
+    padding: 2em 0;
+    justify-content: center;
+    align-items: flex-start; /* Aligns items to the top if heights vary */
+}
+
+/* --- Photo Card --- */
+.photo-card {
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 25px var(--color-shadow);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform var(--transition-duration) var(--ease-out-cubic),
+                box-shadow var(--transition-duration) var(--ease-out-cubic);
+    opacity: 0; /* Hidden by default for scroll-reveal */
+    transform: translateY(30px); /* Initial state for scroll-reveal */
+}
+
+.photo-card.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.photo-card img {
+    width: 100%;
+    height: 320px; /* Fixed height for consistent look */
+    object-fit: cover; /* Ensures images cover the area */
+    display: block;
+    transition: transform var(--transition-duration) var(--ease-out-cubic);
+}
+
+.photo-card:hover {
+    transform: translateY(-10px) scale(1.02); /* Subtle lift and zoom */
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.photo-card:hover img {
+    transform: scale(1.05); /* Gentle image zoom */
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5em 1em;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0)); /* Gradient overlay */
+    color: var(--color-text-light);
+    transform: translateY(100%); /* Start off-screen */
+    opacity: 0; /* Hidden by default */
+    transition: transform var(--transition-duration) var(--ease-out-cubic),
+                opacity var(--transition-duration) var(--ease-out-cubic);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.photo-card:hover .card-overlay {
+    transform: translateY(0); /* Slide up on hover */
+    opacity: 1; /* Fade in on hover */
+}
+
+.card-overlay h3 {
+    color: var(--color-text-light);
+    margin: 0;
+    font-size: 1.3em;
+}
+
+/* --- Footer --- */
+.main-footer {
+    text-align: center;
+    padding: 3em 2em;
+    background-color: var(--color-secondary-bg);
+    color: #888;
+    font-size: 0.9em;
+    margin-top: 4em;
+    border-top: 1px solid #e0dbd6;
+}
+
+.main-footer p {
+    margin: 0.5em 0;
+}
+
+/* --- Photo Modal --- */
+.photo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    visibility: hidden; /* Hidden by default */
+    opacity: 0;
+    transition: opacity var(--transition-duration) var(--ease-out-cubic), visibility var(--transition-duration) var(--ease-out-cubic);
+}
+
+.photo-modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column; /* Stack image and details on small screens */
+    overflow: hidden; /* Important for border-radius */
+    position: relative;
+    transform: scale(0.8) translateY(20px); /* Initial state for entry animation */
+    opacity: 0;
+    transition: transform var(--transition-duration) var(--ease-out-cubic),
+                opacity var(--transition-duration) var(--ease-out-cubic);
+}
+
+.photo-modal.active .modal-content {
+    transform: scale(1) translateY(0); /* Animate to full size */
+    opacity: 1;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2.5em;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    z-index: 2001;
+    transition: transform 0.3s ease, color 0.3s ease;
+    padding: 5px;
+    line-height: 1; /* Adjust line height for better centering */
+}
+
+.close-btn:hover {
+    color: var(--color-accent);
+    transform: rotate(90deg); /* Subtle spin on close */
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: row; /* Default for larger screens */
+    max-height: 100%; /* Ensure content fits within modal */
+}
+
+.modal-body img {
+    flex: 1; /* Takes up available space */
+    min-width: 50%; /* Image takes at least half width on large screens */
+    height: auto;
+    object-fit: contain; /* Ensures entire image is visible, no cropping */
+    max-height: 80vh; /* Limits image height to viewport height */
+}
+
+.modal-details {
+    flex: 1; /* Takes up available space */
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 300px; /* Ensures details panel has minimum width */
+}
+
+.modal-details h3 {
+    margin-top: 0;
+    color: var(--color-accent);
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.modal-details p {
+    margin-bottom: 0.8em;
+    color: #555;
+}
+
+.download-btn {
+    display: inline-block;
+    background: var(--color-accent);
+    color: var(--color-text-light);
+    padding: 0.8em 1.5em;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 1.5em;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.download-btn:hover {
+    background: var(--color-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+/* --- Keyframe Animations --- */
+@keyframes fadeInPage {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInFromTop {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 900px) {
+    .modal-body {
+        flex-direction: column; /* Stack image and details vertically */
+    }
+
+    .modal-body img {
+        width: 100%;
+        min-width: unset;
+        max-height: 60vh; /* Adjust max height for mobile */
+    }
+
+    .modal-details {
+        min-width: unset;
+        width: 100%;
+        padding: 1.5em;
+        text-align: center;
+    }
+
+    .close-btn {
+        top: 10px;
+        right: 10px;
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 { font-size: 2.5em; }
+    .site-tagline { font-size: 1em; }
+    .main-header { padding: 3em 1.5em; }
+    .gallery-container { padding: 2em 1em; }
+    .photo-grid { gap: 1.5em; }
+    .photo-card img { height: 280px; }
+    .modal-details h3 { font-size: 1.5em; }
+    .modal-details p { font-size: 0.9em; }
+}
+
+@media (max-width: 400px) {
+    h1 { font-size: 2em; }
+    .photo-card img { height: 250px; }
+    .photo-card { box-shadow: 0 4px 15px var(--color-shadow); }
+}
